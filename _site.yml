@@ -1,0 +1,16 @@
+name: "SchoolData"
+navbar:
+  title: "School data"
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "About"
+      icon: fa-info
+      href: about.html
+    - text: "Stuff"
+      icon: fa-gear
+      menu:
+        - text: "Data Sources"
+          href: data_sources.html
+output_dir: "."
