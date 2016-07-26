@@ -1,0 +1,47 @@
+---
+title: "Free and reduced lunch"
+params: 
+  inputDir: "cooked/"
+  thisDir:  "analyze/"
+  outputDir: "analyzed/"
+  fileStem: "EDA"
+  inputFiles: 
+    - DataCrunch
+---
+
+```{r KnitrOpts, echo=FALSE}
+# knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=TRUE)
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+```{r Load, results='hide'}
+loadedObjects <- represtools::LoadObjects(params)
+```
+
+```{r}
+dfPlot <- dfSchoolInfo %>% 
+  filter(!is.na(PupilTeacherRatio)
+         , PupilTeacherRatio < 100)
+
+pltRatio2 <- ggplot(dfPlot, aes(FreeAndReducedPct, PupilTeacherRatio)) + geom_point()
+pltRatio2 <- pltRatio2 + stat_smooth(method = lm)
+pltRatio2
+```
+
+```{r}
+dfPlot <- dfSchoolInfo %>% 
+  filter(!is.na(FreeAndReducedPct))
+
+pltLatLong <- ggplot(dfPlot, aes(Longitude, Latitude, color = FreeAndReducedPct)) + geom_point()
+pltLatLong
+```
+
+```{r Save, eval=FALSE}
+save(file = represtools::OutputFile(params)
+     , list = lstObjects)
+```

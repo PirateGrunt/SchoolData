@@ -1,0 +1,40 @@
+---
+title: "Data Crunch"
+params: 
+  inputDir: "gathered/"
+  thisDir:  "cook/"
+  outputDir: "cooked/"
+  fileStem: "DataCrunch"
+  inputFiles: 
+    - DataCrunch
+---
+
+```{r KnitrOpts, echo=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+```
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+loadedObjects <- represtools::LoadObjects(params)
+```
+
+```{r}
+colnames(dfSchoolInfo) <- gsub(".", "", colnames(dfSchoolInfo), fixed=TRUE)
+
+dfSchoolInfo <- dfSchoolInfo %>% 
+  mutate(FreeAndReducedPct = TotalFreeandReducedLunch / TotalStudents)
+```
+
+```{r GatherObjects}
+lstObjects <- represtools::ListObjects(pattern = c("df"))
+represtools::DescribeObjects(represtools::NamesToObjects(lstObjects), c(str, summary))
+```
+
+```{r Save}
+save(file = represtools::OutputFile(params)
+     , list = lstObjects)
+```

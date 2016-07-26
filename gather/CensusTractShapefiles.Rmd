@@ -1,0 +1,32 @@
+---
+title: "CensusTractShapefiles"
+params: 
+  inputDir: "gather/"
+  thisDir:  "gather/"
+  outputDir: "gathered/"
+  fileStem: "CensusTractShapefiles"
+---
+
+```{r KnitrOpts, echo=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+```
+
+This module will gather census tract shapefiles for North Carolina.
+
+```{r }
+URL <- "ftp://ftp2.census.gov//geo/tiger/TIGER2015/TRACT/tl_2015_37_tract.zip"
+strDownload <- paste0(params$outputDir, "Census.zip")
+download.file(URL, strDownload, mode="wb")
+
+unzip(strDownload, exdir = params$outputDir)
+
+# Check existence of files
+```
+
+```{r Save}
+allGood <- TRUE
+
+save(file = represtools::OutputFile(params)
+     , list = "allGood")
+```

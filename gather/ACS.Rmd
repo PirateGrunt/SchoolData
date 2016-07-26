@@ -1,0 +1,36 @@
+---
+title: "ACS"
+params: 
+  inputDir: "gather/"
+  thisDir:  "gather/"
+  outputDir: "gathered/"
+  fileStem: "ACS"
+---
+
+```{r KnitrOpts, echo=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+```
+
+This module will gather ACS data by census tract for Durham county. At present, we are only gathering income data.
+
+```{r}
+library(acs)
+api.key.install("1b17fc10178254f0b1e185d82a40b055b46dab63")
+durham <- geo.make(state = "NC"
+                   , county = "Durham"
+                   , tract = "*"
+                   , check = TRUE)
+
+objIncome <- acs.fetch(2014, geography = durham, table.name = "B19013", col.names = "pretty")
+```
+
+```{r GatherObjects}
+lstObjects <- represtools::ListObjects("obj")
+represtools::DescribeObjects(lstObjects, str)
+```
+
+```{r Save}
+save(file = represtools::OutputFile(params)
+     , list = lstObjects)
+```

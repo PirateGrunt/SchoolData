@@ -1,0 +1,91 @@
+---
+title: "Data Crunch stuff"
+params: 
+  inputDir: "gather/"
+  thisDir:  "gather/"
+  outputDir: "gathered/"
+  fileStem: "DataCrunch"
+---
+
+```{r KnitrOpts, echo=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+```
+
+Data comes from http://ncdata4good.github.io/DataCrunch2015/.
+
+## Farmers Markets
+
+```{r}
+strFarmersMarket <- "https://raw.githubusercontent.com/Msanghi/NCData4Good/master/Export.csv"
+
+dfFarmersMarket <- read.csv(strFarmersMarket, stringsAsFactors = FALSE)
+```
+
+## Grocery Stores
+
+```{r }
+strGroceryStore <- "https://raw.githubusercontent.com/Msanghi/NCData4Good/master/cleandata_grocery_store.csv"
+
+dfGroceryStore <- read.csv(strGroceryStore, stringsAsFactors = FALSE)
+```
+
+## SNAP Retailers
+
+```{r}
+strSNAP <- "https://raw.githubusercontent.com/DrZeydy/Data4Good/gh-pages/SNAP-NC.csv"
+dfSNAP <- read.csv(strSNAP, stringsAsFactors = FALSE)
+```
+
+## Food banks
+
+```{r}
+strFoodBank <- "https://raw.githubusercontent.com/DrZeydy/Data4Good/gh-pages/food_bank-NC.csv"
+dfFoodBank <- read.csv(strFoodBank, stringsAsFactors = FALSE)
+```
+
+## Food pantries
+
+```{r}
+strFoodPantry <- "https://raw.githubusercontent.com/DrZeydy/Data4Good/gh-pages/pantries.csv"
+dfFoodPantry <- read.csv(strFoodPantry, stringsAsFactors = FALSE)
+```
+
+## Bus stops
+
+```{r}
+strBusStop <- "https://raw.githubusercontent.com/DrZeydy/Data4Good/gh-pages/local_agencies.csv"
+dfBusStop <- read.csv(strBusStop, stringsAsFactors = FALSE)
+```
+
+## Schools
+
+```{r}
+strSchoolInfo <- "https://raw.githubusercontent.com/DrZeydy/Data4Good/gh-pages/NCschools-info.csv"
+strSchoolPerformance14 <- "https://raw.githubusercontent.com/DrZeydy/Data4Good/gh-pages/local_school_perf1314.csv"
+strSchoolPerformance15 <- "https://raw.githubusercontent.com/DrZeydy/Data4Good/gh-pages/local_school_perf1415.csv"
+
+dfSchoolInfo <- read.csv(strSchoolInfo)
+dfSchoolPerformance14 <- read.csv(strSchoolPerformance14, stringsAsFactors = FALSE)
+dfSchoolPerformance15 <- read.csv(strSchoolPerformance15, stringsAsFactors = FALSE)
+```
+
+## Active agency programs
+
+```{r}
+strAgency <- "https://raw.githubusercontent.com/NCData4Good/DataCrunch2015/gh-pages/agency_programs.csv"
+strAgencyClean <- "https://raw.githubusercontent.com/NCData4Good/DataCrunch2015/gh-pages/agency_programs_cleaned.csv"
+
+dfAgency <- read.csv(strAgency, stringsAsFactors = FALSE)
+dfAgencyClean <- read.csv(strAgencyClean, stringsAsFactors = FALSE)
+```
+
+```{r GatherObjects}
+lstObjects <- represtools::ListObjects(c("obj", "df"))
+represtools::DescribeObjects(represtools::NamesToObjects(lstObjects), str)
+```
+
+```{r Save}
+save(file = represtools::OutputFile(params)
+     , list = lstObjects)
+```

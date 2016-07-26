@@ -1,0 +1,56 @@
+---
+title: "CensusBlocks"
+params: 
+  inputDir: "gathered/"
+  thisDir:  "cook/"
+  outputDir: "cooked/"
+  fileStem: "CensusBlocks"
+  inputFiles: 
+    - CensusTractShapefiles
+    - SchoolZoneShapefiles
+---
+
+```{r KnitrOpts, echo=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+```
+
+```{r}
+library(acs)
+library(sp)
+library(rgdal)
+```
+
+```{r Load, results='hide'}
+loadedObjects <- represtools::LoadObjects(params)
+```
+
+# Census tract shapefiles
+
+```{r }
+shpfile.tract <- paste0(params$inputDir, "tl_2015_37_tract.shp")
+ogrListLayers(shpfile.tract)
+
+shpCensus <- readOGR(shpfile.tract, "tl_2015_37_tract")
+plot(shpCensus)
+```
+
+# School district shapefiles
+
+```{r }
+shpfile.School <- paste0(params$inputDir, "tl_2015_37_unsd.shp")
+ogrListLayers(shpfile.School)
+
+shpSchoolDistrict <- readOGR(shpfile.School, "tl_2015_37_unsd")
+plot(shpSchoolDistrict)
+```
+
+```{r GatherObjects}
+lstObjects <- represtools::ListObjects(pattern = c("^shp[A-Z]"))
+represtools::DescribeObjects(represtools::NamesToObjects(lstObjects), c(str, summary))
+```
+
+```{r Save}
+save(file = represtools::OutputFile(params)
+     , list = lstObjects)
+```

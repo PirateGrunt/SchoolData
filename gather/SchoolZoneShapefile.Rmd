@@ -1,0 +1,35 @@
+---
+title: School Zone
+params: 
+  inputDir: "gather/"
+  thisDir:  "gather/"
+  outputDir: "gathered/"
+  fileStem: SchoolZoneShapefile
+---
+
+```{r KnitrOpts, echo=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+```
+
+This module will gather shapefiles for North Carolina unified school districts.
+
+```{r}
+URL <- "ftp://ftp2.census.gov//geo/tiger/TIGER2015/UNSD/tl_2015_37_unsd.zip"
+strDownload <- paste0(params$outputDir, "SchoolZoneShapefile.zip")
+download.file(URL, strDownload, mode="wb")
+
+unzip(strDownload, exdir = params$outputDir)
+```
+
+## 
+
+```{r ListObjects}
+lstObjects <- represtools::ListObjects()
+represtools::DescribeObjects(represtools::NamesToObjects(lstObjects))
+```
+
+```{r Save}
+save(file = represtools::OutputFile(params)
+     , list = lstObjects)
+```

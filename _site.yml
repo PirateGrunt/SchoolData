@@ -8,9 +8,15 @@ navbar:
     - text: "About"
       icon: fa-info
       href: about.html
-    - text: "Stuff"
+    - text: "Data"
       icon: fa-gear
       menu:
         - text: "Data Sources"
           href: data_sources.html
+        - text: "Munging"
+    - text: "EDA"
+      icon: fa-key
+      menu:
+        - text: "Free and reduced lunch"
+          href: free_and_reduced_lunch.html
 output_dir: "."
