@@ -2,4 +2,43 @@
 title: "School Data"
 ---
 
-School data
+This is a companion project to the School Navigator project, sponsored by [Code for Durham](http://codefordurham.com/). This is a space to explore and analyze some of the publicly available data about schools.
+
+This website was built using RMarkdown, based on instructions here: [Rstudio rmarkdown_websites](http://rmarkdown.rstudio.com/rmarkdown_websites.html). Although RMarkdown was built 
+
+# Contributing
+
+To make a contribution, fork the GitHub repository. A link to the repository may be found at the right end of the menu bar. Read more about how to do that here: [GitHub article on forking](https://help.github.com/articles/fork-a-repo/).
+
+Within your forked repository, add an HTML file at the root directory. Alternately, you may create an RMarkdown file, which will be converted into HTML (see below). 
+
+The menu is not built automatically. Adding an entry is as simple as entering two lines in the menu section of the file "_site.yml".
+
+```
+name: "SchoolData"
+navbar:
+  title: "School data"
+  left:
+  
+  ... 
+  
+        - text: "My item"
+          href: my_filename.html
+          
+  ...
+  
+    - icon: fa-github
+      href: https://github.com/PirateGrunt/SchoolData/tree/gh-pages
+output_dir: "."
+output:
+  html_document:
+    theme: flatly
+```
+
+Issuing the command below from an R session, will regenerate the site. This will convert all RMarkdown files to HTML. You may inspect the results locally before issuing a pull request.
+
+```
+rmarkdown::render_site()
+```
+
+To read more about making a pull request, GitHub has an excellent summary: [issuing a pull request](https://help.github.com/articles/using-pull-requests/).

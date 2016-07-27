@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -98,34 +98,34 @@ button.code-folding-btn:focus {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 60px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 </style>
 
@@ -184,13 +184,6 @@ $(document).ready(function () {
     Home
   </a>
 </li>
-<li>
-  <a href="about.html">
-    <span class="fa fa-info"></span>
-     
-    About
-  </a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-gear"></span>
@@ -243,7 +236,35 @@ $(document).ready(function () {
 </div>
 
 
-<p>School data</p>
+<p>This is a companion project to the School Navigator project, sponsored by <a href="http://codefordurham.com/">Code for Durham</a>. This is a space to explore and analyze some of the publicly available data about schools.</p>
+<p>This website was built using RMarkdown, based on instructions here: <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html">Rstudio rmarkdown_websites</a>. Although RMarkdown was built</p>
+<div id="contributing" class="section level1">
+<h1>Contributing</h1>
+<p>To make a contribution, fork the GitHub repository. A link to the repository may be found at the right end of the menu bar. Read more about how to do that here: <a href="https://help.github.com/articles/fork-a-repo/">GitHub article on forking</a>.</p>
+<p>Within your forked repository, add an HTML file at the root directory. Alternately, you may create an RMarkdown file, which will be converted into HTML (see below).</p>
+<p>The menu is not built automatically. Adding an entry is as simple as entering two lines in the menu section of the file “_site.yml“.</p>
+<pre><code>name: &quot;SchoolData&quot;
+navbar:
+  title: &quot;School data&quot;
+  left:
+  
+  ... 
+  
+        - text: &quot;My item&quot;
+          href: my_filename.html
+          
+  ...
+  
+    - icon: fa-github
+      href: https://github.com/PirateGrunt/SchoolData/tree/gh-pages
+output_dir: &quot;.&quot;
+output:
+  html_document:
+    theme: flatly</code></pre>
+<p>Issuing the command below from an R session, will regenerate the site. This will convert all RMarkdown files to HTML. You may inspect the results locally before issuing a pull request.</p>
+<pre><code>rmarkdown::render_site()</code></pre>
+<p>To read more about making a pull request, GitHub has an excellent summary: <a href="https://help.github.com/articles/using-pull-requests/">issuing a pull request</a>.</p>
+</div>
 
 
 

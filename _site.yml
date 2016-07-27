@@ -5,9 +5,6 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
-    - text: "About"
-      icon: fa-info
-      href: about.html
     - text: "Data"
       icon: fa-gear
       menu:
@@ -22,3 +19,6 @@ navbar:
     - icon: fa-github
       href: https://github.com/PirateGrunt/SchoolData/tree/gh-pages
 output_dir: "."
+output:
+  html_document:
+    theme: flatly

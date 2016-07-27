@@ -1,5 +1,0 @@
----
-title: About
----
-
-This is a side project of the School Navigator project.
