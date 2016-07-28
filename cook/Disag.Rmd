@@ -1,0 +1,43 @@
+---
+title: "Disag"
+params: 
+  inputDir: "gathered/"
+  thisDir:  "cook/"
+  outputDir: "cooked/"
+  fileStem: "Disag"
+  inputFiles: 
+    - Disag
+---
+
+```{r KnitrOpts, echo=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+```
+
+```{r Load, results='hide'}
+loadedObjects <- represtools::LoadObjects(params)
+```
+
+```{r}
+# all the magnets in the earlier 2012-13 list are still in this list
+dfMagnets1516 <- dfEDDIEschools1516 %>% 
+  dplyr::filter( SchoolProgramType=="Magnet") %>% 
+  dplyr::select( SchoolCode )
+nrow(dfMagnets1516)
+
+dfAlternatives1516 <- dfEDDIEschools1516 %>% 
+  dplyr::filter( SchoolType=="Alternative Education") %>% 
+  dplyr::select( SchoolCode )
+
+nrow(dfAlternatives1516)
+```
+
+```{r ListObjects}
+lstObjects <- c("dfEDDIEschools1516", "dfMagnets1516", "dfAlternatives1516")
+represtools::DescribeObjects(represtools::NamesToObjects(lstObjects))
+```
+
+```{r Save}
+save(file = represtools::OutputFile(params)
+     , list = lstObjects)
+```

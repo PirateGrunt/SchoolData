@@ -1,0 +1,83 @@
+---
+title: "Disag"
+params: 
+  inputDir: "gather/"
+  thisDir:  "gather/"
+  outputDir: "gathered/"
+  fileStem: "Disag"
+---
+
+```{r KnitrOpts, echo=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+knitr::opts_chunk$set(echo=TRUE, message=TRUE, warning=TRUE, error=TRUE)
+```
+
+```{r eval = FALSE}
+dataPath <- "data/"
+RDataPath <- "R_Data/"
+graphicsPath <- "graphics/"
+graphicsPathDurham <- paste0(graphicsPath, "durham/")
+graphicsPathCharmeck <- paste0(graphicsPath, "charmeck/")
+graphicsPathOrange <- paste0(graphicsPath, "orange/")
+graphicsPathWake <- paste0(graphicsPath, "wake/")
+
+outputPath <- "output/"
+
+zipPath <- "../NCPSdisagZips/"
+
+# selectors etc.
+forLEAs <- c("32", "60", "68", "92")
+forLEAsDist <- c("durham", "charmeck", "orange", "wake")
+forLEAsText <- c("Durham", "Charlotte-Mecklenburg", "Orange", "Wake")
+
+forGraphicsPaths <- c(graphicsPathDurham, graphicsPathCharmeck, graphicsPathOrange, graphicsPathWake)
+
+forYears <- c("2013-14", "2014-15")
+forSubjects <- c("EOG", "MA", "RD")
+```
+
+#################################
+read active_lea_school_district_schools_report.csv
+does not include charter schools
+source NCPS EDDIE
+for 2015-16 academic year
+active_lea_school_district_schools_report.csv
+
+USE: 	identify magnets
+	identify alternative schools
+#################################
+alter the column headings to make them acceptable to R
+
+LEA Code -> LEA
+School Code -> SchoolCode
+School Type Description -> SchoolType
+School Program Type Description -> SchoolProgramType
+#################################
+
+```{r}
+strFile <- paste0(params$inputDir, "active_lea_school_district_schools_report.csv")
+dfEDDIEschools1516 <- readr::read_csv(paste0(dataPath, strFile)
+                                      , col_types = cols_only(LEA = col_character()
+                                                              , SchoolCode = col_character()
+                                                              , SchoolType = col_character()
+                                                              , SchoolProgramType = col_character()))
+```
+
+```{r }
+nrow(EDDIEschools1516)
+
+unique(EDDIEschools1516$SchoolType)
+unique(EDDIEschools1516$SchoolProgramType)
+EDDIEschools1516 %>% dplyr::filter(SchoolProgramType == "Magnet") %>% nrow()
+EDDIEschools1516 %>% dplyr::filter(SchoolType == "Alternative Education") %>% nrow()
+```
+
+```{r ListObjects}
+lstObjects <- "dfEDDIEschools1516"
+represtools::DescribeObjects(represtools::NamesToObjects(lstObjects))
+```
+
+```{r Save}
+save(file = represtools::OutputFile(params)
+     , list = lstObjects)
+```
